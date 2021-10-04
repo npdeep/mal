@@ -1,5 +1,7 @@
 import re
 
+from mal_types import TRUE, FALSE
+
 class Reader:
     def __init__(self, tokens, position=0):
         self.tokens = tokens
@@ -58,6 +60,12 @@ def read_list(reader: Reader, start="(", end=")"):
 
 def read_atom(reader: Reader):
     token = reader.next() # Read and jump to next
+    if token == "nil":
+        return None
+    elif token == "true":
+        return TRUE
+    elif token == "false":
+        return FALSE
     try:
         return int(token)
     except:
